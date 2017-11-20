@@ -2,6 +2,7 @@ import React, { Component, PureComponent } from 'react';
 import Icon from 'icon';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import SubPopupMenu from './SubPopupMenu';
 
 export default class SubMenu extends (PureComponent || Component) {
@@ -91,7 +92,14 @@ export default class SubMenu extends (PureComponent || Component) {
           {title}
           {!disabled && <Icon type="right" />}
         </div>
-        {!disabled && this.renderContent()}
+        <ReactCSSTransitionGroup
+          transitionName={`${prefix}-submenu-cont`}
+          transitionEnterTimeout={1000}
+          transitionLeaveTimeout={1000}
+          className="test"
+        >
+          {!disabled && this.renderContent()}
+        </ReactCSSTransitionGroup>
       </li>
     );
   }

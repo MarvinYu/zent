@@ -17,7 +17,7 @@ zh-CN:
 	tagText1: 电影
 	tagText2: 书籍
 	tagText3: 旅行
-	ageText: 年龄
+	ageText: 年龄：
 	colorText: 喜欢的颜色：
 	dateRangeText: 身份证有效期：
 	dateRangeValidationErrors: 请填写有效期
@@ -43,9 +43,9 @@ en-US:
 	tagText1: movie
 	tagText2: book
 	tagText3: travel
-	ageText: age
+	ageText: age：
 	colorText: Favourite color：
-	dateRangeText: Valid period of ID card
+	dateRangeText: Valid period of ID card：
 	dateRangeValidationErrors: Please select the dateRange
 	isPublicText: Public information：
 	agreeText: All permissions：

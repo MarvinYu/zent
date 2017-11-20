@@ -4,7 +4,7 @@ zh-CN:
 	title: 不同校验时机
 	validationOnChange: Change时校验：
 	validationOnBlur: Blur时校验：
-	validationOnSubmit: submit时校验
+	validationOnSubmit: submit时校验：
 	fieldError1: 值不能为空
 	fieldError2: 只能为字母
 	submit: 获取表单值
@@ -36,7 +36,7 @@ class FormattedForm extends React.Component {
 				<FormInputField
 					name="field1"
 					type="text"
-					label="{i18n.validationOnChange}:"
+					label="{i18n.validationOnChange}"
 					validations={{ 
 						required: true,
 						matchRegex: /^[a-zA-Z]+$/
@@ -49,7 +49,7 @@ class FormattedForm extends React.Component {
 				<FormInputField
 					name="field2"
 					type="text"
-					label="{i18n.validationOnBlur}:"
+					label="{i18n.validationOnBlur}"
 					validateOnChange={false}
 					validations={{ 
 						required: true,

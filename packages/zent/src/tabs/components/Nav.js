@@ -1,6 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import noop from 'lodash/noop';
 
 import Tab from './Tab';
@@ -71,7 +72,7 @@ class Nav extends (PureComponent || Component) {
   renderTabs() {
     let renderData = navUtil.modifyTabListData(this.props);
     let TabList = [];
-    renderData.forEach(renderDataItem => {
+    renderData.forEach((renderDataItem, index) => {
       let refParam = {};
       if (renderDataItem.actived) {
         refParam.ref = c => {
@@ -87,6 +88,7 @@ class Nav extends (PureComponent || Component) {
           {...renderDataItem}
           id={renderDataItem.key}
           {...refParam}
+          key={`tab${index}`}
         >
           {renderDataItem.title}
         </Tab>
@@ -112,7 +114,7 @@ class Nav extends (PureComponent || Component) {
   }
 
   render() {
-    let { prefix, align, canadd, size, type } = this.props;
+    let { prefix, align, canadd, candel, size, type } = this.props;
     let classes = `${prefix}-tabs-size-${size} ${prefix}-tabs-type-${type} ${prefix}-tabs-align-${align}`;
     if (type === 'slider' && size === 'normal') {
       classes += ` ${prefix}-tabs-third-level`;
@@ -152,7 +154,19 @@ class Nav extends (PureComponent || Component) {
                   this.inkBarDom = c;
                 }}
               />
-              <div>{this.renderTabs()}</div>
+              {canadd || candel ? (
+                <ReactCSSTransitionGroup
+                  transitionName={`${prefix}-tabs-nav-transition-wrap`}
+                  transitionAppear
+                  transitionEnter={false}
+                  transitionAppearTimeout={500}
+                  transitionLeaveTimeout={500}
+                >
+                  {this.renderTabs()}
+                </ReactCSSTransitionGroup>
+              ) : (
+                <div>{this.renderTabs()}</div>
+              )}
             </div>
           </div>
         </div>

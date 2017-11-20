@@ -52,7 +52,7 @@ en-US:
 	idHelpdesc: custom validations
 	idValidationError1: ID number can only be numbers.
 	idValidationError2: ID number is 10 or 15 digits.
-	hobbies: hobbies
+	hobbies: hobbies：
 	hobbiesHelpdesc: length validation
 	hobbiesValidationError: Please select at least two hobbies.
 	hobbiesText1: movie

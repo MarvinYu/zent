@@ -238,3 +238,22 @@ $slidercolor: $theme-primary-3;
 .zent-tabs-third-level {
   background-color: $theme-stroke-9;
 }
+
+/* tab动态增加动画 */
+.zent-tabs-nav-transition-wrap-appear {
+  opacity: 0.01;
+}
+
+.zent-tabs-nav-transition-wrap-appear.zent-tabs-nav-transition-wrap-appear-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.zent-tabs-nav-transition-wrap-leave {
+  opacity: 1;
+}
+
+.zent-tabs-nav-transition-wrap-leave.zent-tabs-nav-transition-wrap-leave-active {
+  opacity: 0.01;
+  transition: all 300ms ease-in;
+}
