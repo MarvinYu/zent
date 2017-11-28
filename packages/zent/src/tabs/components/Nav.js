@@ -1,7 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { CSSTransitionGroup } from 'react-transition-group';
 import noop from 'lodash/noop';
 
 import Tab from './Tab';
@@ -72,7 +72,7 @@ class Nav extends (PureComponent || Component) {
   renderTabs() {
     let renderData = navUtil.modifyTabListData(this.props);
     let TabList = [];
-    renderData.forEach((renderDataItem, index) => {
+    renderData.forEach(renderDataItem => {
       let refParam = {};
       if (renderDataItem.actived) {
         refParam.ref = c => {
@@ -88,7 +88,7 @@ class Nav extends (PureComponent || Component) {
           {...renderDataItem}
           id={renderDataItem.key}
           {...refParam}
-          key={`tab${index}`}
+          key={`tab${renderDataItem.key}`}
         >
           {renderDataItem.title}
         </Tab>
@@ -155,15 +155,13 @@ class Nav extends (PureComponent || Component) {
                 }}
               />
               {canadd || candel ? (
-                <ReactCSSTransitionGroup
+                <CSSTransitionGroup
                   transitionName={`${prefix}-tabs-nav-transition-wrap`}
-                  transitionAppear
-                  transitionEnter={false}
-                  transitionAppearTimeout={500}
+                  transitionEnterTimeout={500}
                   transitionLeaveTimeout={500}
                 >
                   {this.renderTabs()}
-                </ReactCSSTransitionGroup>
+                </CSSTransitionGroup>
               ) : (
                 <div>{this.renderTabs()}</div>
               )}

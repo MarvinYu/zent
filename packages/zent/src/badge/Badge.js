@@ -1,7 +1,7 @@
 import React, { PureComponent, Component } from 'react';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { CSSTransitionGroup } from 'react-transition-group';
 
 export default class Badge extends (PureComponent || Component) {
   static propTypes = {
@@ -60,13 +60,13 @@ export default class Badge extends (PureComponent || Component) {
         {children ? (
           <div className={`${prefix}-badge-content`}>{children}</div>
         ) : null}
-        <ReactCSSTransitionGroup
+        <CSSTransitionGroup
           transitionName={`${prefix}-badge-transition-wrap`}
           transitionEnterTimeout={300}
           transitionLeaveTimeout={300}
         >
           {renderCount()}
-        </ReactCSSTransitionGroup>
+        </CSSTransitionGroup>
       </div>
     );
   }

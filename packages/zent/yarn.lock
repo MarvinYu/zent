@@ -177,12 +177,6 @@ raf@^3.3.2:
   dependencies:
     performance-now "^2.1.0"
 
-react-addons-css-transition-group@^15.6.2:
-  version "15.6.2"
-  resolved "http://registry.npm.qima-inc.com/react-addons-css-transition-group/download/react-addons-css-transition-group-15.6.2.tgz#9e4376bcf40b5217d14ec68553081cee4b08a6d6"
-  dependencies:
-    react-transition-group "^1.2.0"
-
 react-dnd-html5-backend@^2.4.1:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/react-dnd-html5-backend/-/react-dnd-html5-backend-2.5.1.tgz#d3656e514b0c469902a485fffa75f8684e21c777"
@@ -200,7 +194,7 @@ react-dnd@^2.4.0:
     lodash "^4.2.0"
     prop-types "^15.5.10"
 
-react-transition-group@^1.2.0:
+react-transition-group@1.x:
   version "1.2.1"
   resolved "http://registry.npm.qima-inc.com/react-transition-group/download/react-transition-group-1.2.1.tgz#e11f72b257f921b213229a774df46612346c7ca6"
   dependencies:

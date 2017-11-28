@@ -240,13 +240,13 @@ $slidercolor: $theme-primary-3;
 }
 
 /* tab动态增加动画 */
-.zent-tabs-nav-transition-wrap-appear {
+.zent-tabs-nav-transition-wrap-enter {
   opacity: 0.01;
 }
 
-.zent-tabs-nav-transition-wrap-appear.zent-tabs-nav-transition-wrap-appear-active {
+.zent-tabs-nav-transition-wrap-enter.zent-tabs-nav-transition-wrap-enter-active {
   opacity: 1;
-  transition: opacity 500ms ease-in;
+  transition: all 500ms ease-in;
 }
 
 .zent-tabs-nav-transition-wrap-leave {
@@ -255,5 +255,5 @@ $slidercolor: $theme-primary-3;
 
 .zent-tabs-nav-transition-wrap-leave.zent-tabs-nav-transition-wrap-leave-active {
   opacity: 0.01;
-  transition: all 300ms ease-in;
+  transition: all 500ms ease-in;
 }
