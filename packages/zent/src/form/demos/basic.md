@@ -35,7 +35,7 @@ class FieldForm extends React.Component {
 						<span>{i18n.name}&nbsp;
 							<Pop trigger="hover" content="{i18n.nameTip}" centerArrow>
 								<Icon type="error-circle-o" />
-							</Pop>：
+							</Pop>:
 						</span>
 					}
 					helpDesc="{i18n.nameHelpdesc}"
@@ -44,7 +44,7 @@ class FieldForm extends React.Component {
 				<FormInputField
 					name="password"
 					type="password"
-					label="{i18n.password}："
+					label="{i18n.password}:"
 					helpDesc={<span>{i18n.pwHelpDesc}<a href="https://youzan.com" target="_blank">{i18n.link}</a></span>}
 					notice="{i18n.notice}"
 					required
