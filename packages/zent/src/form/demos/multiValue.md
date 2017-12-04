@@ -16,7 +16,7 @@ en-US:
 	countyListText1: China +86
 	countyListText2: China Macau +853
 	comment1: rewrite part of value
-	contact: Contact Phone：
+	contact: Contact Phone
 	phonePlaceholder: Enter your phone
 	contactPlaceholder: Only phone numbers of China mainland and Macau are supported now.
 	contactError: Please enter right phone numbers.

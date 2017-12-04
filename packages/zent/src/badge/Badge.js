@@ -52,7 +52,15 @@ export default class Badge extends (PureComponent || Component) {
           </span>
         );
       }
-      return countEle;
+      return <CSSTransitionGroup
+          transitionName={`${prefix}-badge-transition-wrap`}
+          transitionEnter={false}
+          transitionAppear
+          transitionAppearTimeout={10000}
+          transitionLeaveTimeout={300}
+        >
+          {countEle}
+        </CSSTransitionGroup>;
     };
 
     return (
@@ -60,13 +68,7 @@ export default class Badge extends (PureComponent || Component) {
         {children ? (
           <div className={`${prefix}-badge-content`}>{children}</div>
         ) : null}
-        <CSSTransitionGroup
-          transitionName={`${prefix}-badge-transition-wrap`}
-          transitionEnterTimeout={300}
-          transitionLeaveTimeout={300}
-        >
-          {renderCount()}
-        </CSSTransitionGroup>
+        {renderCount()}
       </div>
     );
   }

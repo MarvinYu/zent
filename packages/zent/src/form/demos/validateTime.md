@@ -36,7 +36,7 @@ class FormattedForm extends React.Component {
 				<FormInputField
 					name="field1"
 					type="text"
-					label="{i18n.validationOnChange}"
+					label="{i18n.validationOnChange}:"
 					validations={{ 
 						required: true,
 						matchRegex: /^[a-zA-Z]+$/
@@ -49,7 +49,7 @@ class FormattedForm extends React.Component {
 				<FormInputField
 					name="field2"
 					type="text"
-					label="{i18n.validationOnBlur}"
+					label="{i18n.validationOnBlur}:"
 					validateOnChange={false}
 					validations={{ 
 						required: true,
