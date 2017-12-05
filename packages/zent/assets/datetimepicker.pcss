@@ -491,5 +491,79 @@ $input_width: 183px;
         }
       }
     }
+
+    .time-picker {
+      .time-panel {
+        height: 217px;
+        overflow: hidden;
+
+        &__body {
+          height: 176px;
+          overflow: hidden;
+          display: flex;
+          border-bottom: 1px solid $lighter_grey;
+        }
+
+        &__preview {
+          margin: 4px;
+
+          .time-number {
+            cursor: auto;
+          }
+        }
+      }
+
+      .time-select {
+        box-sizing: border-box;
+        flex: 1;
+        border-left: 1px solid $lighter_grey;
+        text-align: center;
+        height: 176px;
+        overflow-y: auto;
+
+        &:first-child {
+          border-left: none;
+        }
+
+        .time-select-wrapper {
+          height: 176px;
+          overflow: hidden;
+
+          &:hover {
+            overflow-y: scroll;
+          }
+
+          ul {
+            list-style: none;
+            padding: 0 0 156px;
+            margin: 0;
+            text-align: center;
+          }
+        }
+      }
+
+      &__cell {
+        padding: 3px;
+        transition: background ease-in-out 0.1s;
+        cursor: pointer;
+
+        &:hover {
+          background: $light_blue;
+        }
+
+        &--selected {
+          background: $light_grey;
+        }
+
+        &--disabled {
+          cursor: not-allowed;
+          color: $disable_color;
+
+          &:hover {
+            background: none;
+          }
+        }
+      }
+    }
   }
 }

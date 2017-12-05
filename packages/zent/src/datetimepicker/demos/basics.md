@@ -3,12 +3,12 @@ order: 1
 zh-CN:
 	title: 基础的日期、自然周、月份、时间段选择
 en-US:
-	title: Basic usage of DatePicker, WeekPicker, MonthPicker and RangePicker
+	title: Basic usage of DatePicker, WeekPicker, MonthPicker and RangePicker, YearPicker, TimePicker
 ---
 
 ```jsx
-import { DatePicker, MonthPicker, DateRangePicker, WeekPicker, YearPicker } from 'zent'
-
+import { DatePicker, MonthPicker, DateRangePicker, WeekPicker, YearPicker, TimePicker } from 'zent'
+console.log(TimePicker)
 class Demo extends Component{
   state = {
 		dateValue: new Date()
@@ -98,6 +98,8 @@ class Demo extends Component{
 					max={2020}
 					onChange={this.onChangeYear}
 				/>
+				<br/>
+				<TimePicker />
       </div>
     )
   }

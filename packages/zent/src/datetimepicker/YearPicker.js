@@ -200,7 +200,6 @@ class YearPicker extends (PureComponent || Component) {
                 onChange={noop}
                 disabled={props.disabled}
               />
-
               <span className="zenticon zenticon-calendar-o" />
               <span
                 onClick={this.onClearInput}

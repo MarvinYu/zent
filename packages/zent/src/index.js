@@ -43,6 +43,7 @@ import Switch from 'switch';
 import Table from 'table';
 import Tabs from 'tabs';
 import Tag from 'tag';
+import TimePicker from 'datetimepicker/TimePicker';
 import Tree from 'tree';
 import Upload from 'upload';
 import WeekPicker from 'datetimepicker/WeekPicker';
@@ -94,6 +95,7 @@ export {
   Table,
   Tabs,
   Tag,
+  TimePicker,
   Tree,
   Upload,
   WeekPicker,

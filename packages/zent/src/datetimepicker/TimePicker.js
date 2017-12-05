@@ -1,42 +1,75 @@
 import React, { Component, PureComponent } from 'react';
 import classNames from 'classnames';
+import Input from 'input';
+import Popover from 'popover';
 import formatDate from 'zan-utils/date/formatDate';
+import parseDate from 'zan-utils/date/parseDate';
+import getWidth from 'utils/getWidth';
 
-import TimePanel from './time/TimePanel';
+import TimePanel from './time-select/TimePanel';
 import PanelFooter from './common/PanelFooter';
-import clickOutside from './utils/clickOutside';
-import { TIME_PROPS } from './constants/';
+import {
+  noop,
+  popPositionMap,
+  commonProps,
+  commonPropTypes
+} from './constants/';
+
+function extractStateFromProps(props) {
+  let showPlaceholder;
+  let selected;
+  let actived;
+  const { format, value, defaultValue } = props;
+
+  if (value) {
+    const tmp = parseDate(`${value}`, format);
+    if (tmp) {
+      showPlaceholder = false;
+      selected = actived = tmp;
+    } else {
+      console.warn("date and format don't match."); // eslint-disable-line
+      showPlaceholder = true;
+      actived = new Date();
+    }
+  } else {
+    showPlaceholder = true;
+    if (defaultValue) {
+      actived = parseDate(`${defaultValue}`, format);
+    } else {
+      actived = new Date();
+    }
+  }
+
+  return {
+    value: selected && formatDate(selected, format),
+    actived,
+    selected,
+    openPanel: false,
+    showPlaceholder
+  };
+}
 
 class TimePicker extends (PureComponent || Component) {
-  static defaultProps = TIME_PROPS;
+  static PropTypes = {
+    ...commonPropTypes
+  };
+
+  static defaultProps = {
+    ...commonProps,
+    placeholder: '请选择时间',
+    format: 'HH:mm:ss',
+    needConfirm: true
+  };
 
   constructor(props) {
     super(props);
-    let showPlaceholder;
-    let selected;
-    if (props.value) {
-      showPlaceholder = false;
-      selected = new Date(props.value);
-    } else {
-      showPlaceholder = true;
-      selected = new Date();
-    }
-    this.state = {
-      value: formatDate(selected, props.format),
-      actived: selected,
-      selected,
-      openPanel: false,
-      showPlaceholder
-    };
+    this.state = extractStateFromProps(props);
   }
 
-  clickOutside = e => {
-    if (!this.picker.contains(e.target)) {
-      this.setState({
-        openPanel: false
-      });
-    }
-  };
+  componentWillReceiveProps(next) {
+    const state = extractStateFromProps(next);
+    this.setState(state);
+  }
 
   onChangeTime = val => {
     this.setState({
@@ -50,14 +83,19 @@ class TimePicker extends (PureComponent || Component) {
     });
   };
 
-  onClickInput = () => {
-    this.setState({
-      openPanel: !this.state.openPanel
-    });
+  onClearInput = evt => {
+    evt.stopPropagation();
+    this.props.onChange('');
   };
 
   onConfirm = () => {
-    const value = formatDate(this.state.actived, this.props.format);
+    const { props, state } = this;
+
+    let value = '';
+    if (state.selected) {
+      value = formatDate(state.selected, props.format);
+    }
+
     this.setState({
       value,
       openPanel: false,
@@ -66,43 +104,86 @@ class TimePicker extends (PureComponent || Component) {
     this.props.onChange(value);
   };
 
-  render() {
-    const { props, state } = this;
-    const prefixCls = `${props.prefix}-datetime-picker ${props.className}`;
-    const inputCls = classNames({
-      'picker-input': true,
-      'picker-input--empty': state.showPlaceholder
-    });
+  renderPicker() {
+    const { state, props } = this;
+
     let timePicker;
     if (state.openPanel) {
       timePicker = (
-        <div className="time-picker">
+        <div className="time-picker" ref={ref => (this.picker = ref)}>
           <TimePanel
             actived={state.actived}
-            format={props.format}
-            disabledTime={props.disabledTime()}
-            onChange={this.onChangeTime}
+            selected={state.selected}
+            onChange={this.onChangeYear}
+            onSelect={this.onSelectYear}
+            disabledDate={this.isDisabled}
           />
-          <PanelFooter
-            linkText="此刻"
-            linkCls="link--current"
-            onClickLink={this.onSelectCurrent}
-            onClickButton={this.onConfirm}
-          />
+          {props.needConfirm && (
+            <PanelFooter
+              buttonText={props.confirmText}
+              linkText="此刻"
+              linkCls="link--current"
+              onClickButton={this.onConfirm}
+            />
+          )}
         </div>
       );
     }
+
+    return timePicker;
+  }
+
+  togglePicker = () => {
+    const { onOpen, onClose, disabled } = this.props;
+    const openPanel = !this.state.openPanel;
+
+    if (disabled) return;
+
+    openPanel ? onOpen && onOpen() : onClose && onClose();
+    this.setState({
+      openPanel: !this.state.openPanel
+    });
+  };
+
+  render() {
+    const { props, state } = this;
+    const wrapperCls = `${props.prefix}-datetime-picker ${props.className}`;
+    const inputCls = classNames({
+      'picker-input': true,
+      'picker-input--filled': !state.showPlaceholder,
+      'picker-input--disabled': props.disabled
+    });
+    const widthStyle = getWidth(props.width);
+
     return (
-      <div className={prefixCls} ref={ref => (this.picker = ref)}>
-        <div className="picker-wrapper">
-          <div className={inputCls} onClick={this.onClickInput}>
-            {state.showPlaceholder ? props.placeholder : state.value}
-          </div>
-          {state.openPanel ? timePicker : ''}
-        </div>
+      <div style={widthStyle} className={wrapperCls}>
+        <Popover
+          cushion={5}
+          visible={state.openPanel}
+          onVisibleChange={this.togglePicker}
+          className={`${props.prefix}-datetime-picker-popover ${props.className}-popover`}
+          position={popPositionMap[props.popPosition.toLowerCase()]}
+        >
+          <Popover.Trigger.Click>
+            <div style={widthStyle} className={inputCls}>
+              <Input
+                name={props.name}
+                value={state.showPlaceholder ? props.placeholder : state.value}
+                onChange={noop}
+                disabled={props.disabled}
+              />
+              <span className="zenticon zenticon-calendar-o" />
+              <span
+                onClick={this.onClearInput}
+                className="zenticon zenticon-close-circle"
+              />
+            </div>
+          </Popover.Trigger.Click>
+          <Popover.Content>{this.renderPicker()}</Popover.Content>
+        </Popover>
       </div>
     );
   }
 }
 
-export default clickOutside(TimePicker);
+export default TimePicker;
